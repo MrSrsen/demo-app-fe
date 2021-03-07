@@ -1,22 +1,13 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <header class="bg-blue-600 text-white font-medium">
+    <nav class="mx-auto container py-4 px-4 flex items-center">
+      <router-link tag="strong" to="/" class="text-xl">demo-app</router-link>
+      <div class="flex-1"></div>
+      <router-link tag="div" to="/">Register</router-link>
+      <router-link tag="div" to="/list" class="ml-12">List</router-link>
+    </nav>
+  </header>
+  <main class="mt-6 py-2 px-4 mx-auto container">
+    <router-view />
+  </main>
 </template>
-
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
