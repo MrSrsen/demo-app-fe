@@ -23,7 +23,7 @@
             required />
         <label>
             Role
-            <select v-model="modelValue.role" name="role" required class="bg-gray-100 px-4 py-1 block rounded w-full">
+            <select v-model="modelValue.roleId" name="role" required class="bg-gray-100 px-4 py-1 block rounded w-full">
                 <option :value="null" disabled>- select role --</option>
                 <option v-for="role in roles" :value="role.id" :key="role.id">{{ role.name }}</option>
             </select>

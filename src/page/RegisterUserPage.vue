@@ -73,7 +73,7 @@ export default {
                 firstName: "",
                 lastName: "",
                 email: "",
-                role: null,
+                roleId: null,
                 password: "",
                 passwordVerify: "",
             };
