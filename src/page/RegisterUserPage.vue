@@ -1,5 +1,5 @@
 <template>
-    <section class="shadow rounded p-6 bg-white border mx-auto max-w-xl">
+    <section class="shadow rounded p-6 bg-white border mx-auto max-w-3xl">
         <h3 class="text-xl font-medium">Register new user</h3>
 
         <alert v-if="message" :theme="message.theme" class="mt-4">
