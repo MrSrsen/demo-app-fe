@@ -1,5 +1,5 @@
 <template>
-    <div class="loader inline-block" :style="{ width: `${size}px`, height: `${size}px`, borderWidth: `${size*0.2}px` }"></div>
+    <div class="loader inline-block" :style="{ width: `${size}px`, height: `${size}px`, borderWidth: `${size*0.15}px` }"></div>
 </template>
 
 <script>
