@@ -2,27 +2,29 @@
     <section class="shadow rounded p-6 bg-white border mx-auto max-w-xl">
         <h3 class="text-xl font-medium">Register new user</h3>
 
-        <alert v-if="message" :type="message.type" class="mt-4">
+        <alert v-if="message" :theme="message.theme" class="mt-4">
             {{ message.text }}
         </alert>
 
-        <register-user-form
-            :value="user"
-            class="mt-6" />
+        <form @submit.prevent="onRegistrationFormSubmit">
+            <register-user-form
+                v-model="user"
+                :errors="errors"
+                class="mt-6" />
 
-        <div class="mt-6 text-right">
-            <base-button
-                @click="onRegistrationFormSubmit"
-                :spinner="pendingRequest"
-                :disabled="pendingRequest"
-                type="primary"
+            <div class="mt-6 text-right">
+                <base-button
+                    :spinner="pendingRequest"
+                    :disabled="pendingRequest"
+                    theme="primary"
+                    type="submit"
                 >Register</base-button>
-        </div>
+            </div>
+        </form>
     </section>
 </template>
 
 <script>
-import config from "../config.js";
 import RegisterUserForm from "../component/RegisterUserForm.vue";
 import Alert from "../component/Alert.vue";
 import BaseButton from "../component/BaseButton.vue";
@@ -36,42 +38,45 @@ export default {
     },
     data() {
         return {
-            user: {
+            user: this.getEmptyUser(),
+            message: null,
+            pendingRequest: false,
+            errors: null,
+        }
+    },
+    methods: {
+        onRegistrationFormSubmit(e) {
+            this.pendingRequest = true;
+            this.message = null;
+            this.errors = null;
+
+            this.fetch('post', '/user', this.user).then((response) => {
+                this.message = {
+                    theme: 'success',
+                    text: response.message
+                };
+
+                this.user = this.getEmptyUser();
+            }).catch((response) => {
+                this.message = {
+                    theme: 'danger',
+                    text: response.message || 'Unexpected error'
+                };
+
+                this.errors = response.errors || null;
+            }).then(() => {
+                this.pendingRequest = false;
+            });
+        },
+        getEmptyUser() {
+            return {
                 firstName: "",
                 lastName: "",
                 email: "",
                 role: null,
                 password: "",
-                passwordConfirmation: "",
-            },
-            message: null,
-            pendingRequest: false,
-        }
-    },
-    methods: {
-        onRegistrationFormSubmit() {
-            this.pendingRequest = true;
-            this.message = null;
-
-            return window.fetch(`${config.backendApiRoot}/user`, {
-                method: 'post',
-                headers: {
-                    'content-type': 'application/json',
-                },
-                body: this.user,
-            }).then((response) => {
-                this.message = {
-                    type: 'success',
-                    text: response.message
-                };
-            }).catch((error) => {
-                this.message = {
-                    type: 'danger',
-                    text: error.message
-                };
-            }).then(() => {
-                this.pendingRequest = false;
-            });
+                passwordVerify: "",
+            };
         }
     }
 }

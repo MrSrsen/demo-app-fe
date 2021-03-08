@@ -1,5 +1,5 @@
 <template>
-    <div role="alert" :class="`rounded-sm px-4 py-2 ${getTypeStyle(type)}`" style="border-left-width: 7px;">
+    <div role="alert" :class="`rounded-sm px-4 py-2 ${getTypeStyle(theme)}`" style="border-left-width: 7px;">
         <slot />
     </div>
 </template>
@@ -8,7 +8,7 @@
 export default {
     name: "Alert",
     props: {
-        type: {
+        theme: {
             required: false,
             type: String,
             default() {

@@ -1,5 +1,5 @@
 <template>
-    <button :class="`${getTypeStyle(type)} px-6 py-2 cursor-pointer rounded font-medium`" :disabled="disabled">
+    <button :class="`${getTypeStyle(theme)} px-6 py-2 cursor-pointer rounded font-medium`" :disabled="disabled">
         <span class="inline-block flex items-center">
             <spinner v-if="spinner" class="mr-2"/>
             <slot />
@@ -14,7 +14,7 @@ export default {
     name: "BaseButton",
     components: {Spinner},
     props: {
-        type: {
+        theme: {
             type: String,
             default() {
                 return 'default';
