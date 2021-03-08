@@ -25,7 +25,10 @@
             Role
             <select v-model="modelValue.roleId" name="role" required class="bg-gray-100 px-4 py-1 block rounded w-full">
                 <option :value="null" disabled>- select role --</option>
-                <option v-for="role in roles" :value="role.id" :key="role.id">{{ role.name }}</option>
+                <template v-if="roles">
+                    <option v-for="role in roles" :value="role.id" :key="role.id">{{ role.name }}</option>
+                </template>
+                <option v-else :value="null" disabled>loading roles...</option>
             </select>
         </label>
         <basic-input
@@ -68,18 +71,14 @@ export default {
     },
     data() {
         return {
-            roles: [
-                {
-                    id: 1,
-                    name: "User"
-                },
-                {
-                    id: 2,
-                    name: "Administrator"
-                },
-            ],
+            roles: null,
         }
     },
+    mounted() {
+        this.fetch('get', '/role').then((response) => {
+            this.roles = response.roles;
+        });
+    }
 }
 </script>
 
